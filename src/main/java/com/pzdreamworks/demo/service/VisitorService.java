@@ -17,7 +17,7 @@ public class VisitorService {
      * @param name
      * @return
      */
-    public Visitor getVisitor(String ip, String name){
+    public Visitor addVisitor(String ip, String name){
         Visitor result = visitorDao.findByIp(ip);
 
         if(result == null){
