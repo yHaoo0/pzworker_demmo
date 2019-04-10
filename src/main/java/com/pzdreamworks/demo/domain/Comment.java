@@ -5,14 +5,14 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comment")
-public class Comment {
+public class Comment implements Comparable<Comment>{
     @Id
     @Column(name = "comment_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "blog_post")
-    private int blog_post;
+    private int blogPost;
 
     @Column(name = "visitor_name")
     private String name;
@@ -21,7 +21,7 @@ public class Comment {
     private int floor;
 
     @Column(name = "floor_reply")
-    private int floor_reply;
+    private int floorReply;
 
     @Column(name = "comment_time")
     private Date time;
@@ -35,12 +35,12 @@ public class Comment {
     private Comment() {
     }
 
-    protected Comment(int blog_post, String name, int floor, int floor_reply,
-                    Date time, String text, boolean isLive) {
-        this.blog_post = blog_post;
+    protected Comment(int blogPost, String name, int floor, int floorReply,
+                      Date time, String text, boolean isLive) {
+        this.blogPost = blogPost;
         this.name = name;
         this.floor = floor;
-        this.floor_reply = floor_reply;
+        this.floorReply = floorReply;
         this.time = time;
         this.text = text;
         this.isLive = isLive;
@@ -52,8 +52,8 @@ public class Comment {
         return id;
     }
 
-    public int getBlog_post() {
-        return blog_post;
+    public int getBlogPost() {
+        return blogPost;
     }
 
     public String getName() {
@@ -64,8 +64,8 @@ public class Comment {
         return floor;
     }
 
-    public int getFloor_reply() {
-        return floor_reply;
+    public int getFloorReply() {
+        return floorReply;
     }
 
     public Date getTime() {
@@ -82,5 +82,22 @@ public class Comment {
 
     public void setLive(boolean live) {
         isLive = live;
+    }
+
+    @Override
+    public int compareTo(Comment o) {
+        if(this.floor < o.floor){
+            return -1;
+        }else if(this.floor > o.floor){
+            return 1;
+        }else {
+            if(this.floorReply < o.floor){
+                return -1;
+            }else if(this.floorReply > o.floorReply){
+                return 1;
+            }else {
+                return 0;
+            }
+        }
     }
 }
